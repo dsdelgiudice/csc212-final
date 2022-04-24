@@ -16,8 +16,7 @@ std::vector<int> BoyerMoore::Preprocess_BC(std::string pattern) {
 
     for (unsigned int i = 0; i < pattern.size(); i++) {
         //Store the last occurrences of all letters in the pattern
-        bad_chars.at(pattern.at(i)) = i;
-        //std::cout << badCharacterArray[pattern.at(i)];
+        bad_chars.at(pattern.at(i)) = i;       
     }
     return bad_chars;
 }
