@@ -6,6 +6,8 @@
 * Leo Ampuero
 */
 
+//main.cpp
+
 #include <iostream>
 #include<string>
 #include <limits>
@@ -117,6 +119,7 @@ void Read_File() {
             }
         }
     }
+    //If input is !cancel
     else {
         std::cout << "File Read aborted." << std::endl;
     }
@@ -155,6 +158,7 @@ void Perform_Search() {
 
 
     }
+    //If input is not to abort action
     if (pattern != "!cancel") {
         pattern_length = pattern.length();
 
@@ -168,29 +172,55 @@ void Perform_Search() {
                     std::cin >> algorithm;
                 }
                 else {
+                    //Correct input 1 or 2
                     confirmed = true;
+
+                    //Boyer-Moore search
                     if (algorithm == 1) {
+                        
+                        //Class instantiation
                         BoyerMoore bmsearch(lowercase_text, lowercase_pattern, text_length, pattern_length, red_flags);
 
+                        //Clock time before execution
                         unsigned long c_start = std::clock();
+
+                        //Execute string-search
                         bmsearch.Search(lowercase_text, lowercase_pattern);
+
+                        //Clock time after execution
                         unsigned long c_end = std::clock();
+
+                        //Total runtime
                         float elapsed_time = 1.0 * (c_end - c_start) / CLOCKS_PER_SEC;
 
+                        //Output displays algorithm run, total runtime, times the pattern has been found, and the length of both the text and pattern
                         std::cout << "Boyer-Moore Search Statistics: " << std::endl;
                         std::cout << "Total Runtime: " << elapsed_time << " seconds" << std::endl;
                         std::cout << "Length of text: " << bmsearch.getTextLength() << std::endl;
                         std::cout << "Length of pattern: " << bmsearch.getPatternLength() << std::endl;
                         std::cout << "Times found: " << bmsearch.getTimesFound() << std::endl;
                     }
+
+                    //Knuth-Morris-Pratt search
                     else if (algorithm == 2) {
+
+                        //Class instantiation
                         KMP kmpsearch(lowercase_text, lowercase_pattern, text_length, pattern_length, red_flags);
 
+                        //Clock time before execution
                         unsigned long start = std::clock();
+
+                        //Execute string-search
                         kmpsearch.Search(lowercase_text, lowercase_pattern);
+
+                        //Clock time after execution
                         unsigned long end = std::clock();
-                        std::cout << "Knuth-Morris-Pratt Search Statistics:" << std::endl;
+
+                        //Total runtime
                         float elapsed_time = 1.0 * (end - start) / CLOCKS_PER_SEC;
+
+                        //Output displays algorithm run, total runtime, times the pattern has been found, and the length of both the text and pattern
+                        std::cout << "Knuth-Morris-Pratt Search Statistics:" << std::endl;
                         std::cout << "Total Runtime: " << elapsed_time << " seconds" << std::endl;
                         std::cout << "Length of text: " << kmpsearch.getTextLength() << std::endl;
                         std::cout << "Length of pattern: " << kmpsearch.getPatternLength() << std::endl;
@@ -201,66 +231,93 @@ void Perform_Search() {
 
         }
         else {
+            //Incorrect input for string-search algorithm to be run
             std::cout << "Invalid input entered. Please enter an integer between 1 and 2." << std::endl;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
     }
     else {
+        //Input is !cancel
         std::cout << "String Search aborted." << std::endl;
     }
 }
 
+//Function to insert word into string vector
 void Insert() {
     system("Color 90");
     bool in_database = false;
     std::cout << "Enter word to insert into database. Input !cancel to abort action. " << std::endl;
     std::cin >> word;
     if (word != "!cancel") {
+        //Traverses through the vector to check for duplicates, capital letters are omitted and treated as lowercase letters in input
         for (unsigned int i = 0; i < red_flags.size(); i++) {
+            //Word via input will not be inserted if already in vector
             if (red_flags[i] == word) {
                 in_database = true;
                 std::cout << "Inputted word is already in database." << std::endl;
                 break;
             }
         }
+
+        //If the word is not in the string vector
         if (!in_database) {
             lowercase_input = Lowercase_Input(word);
+
+            //Insert new word
             red_flags.push_back(lowercase_input);
+
+            //Prompt notification indicating successful execution
             std::cout << "New Red Flag word successfully inserted into database." << std::endl;
             lowercase_input.clear();
         }
     }
+
+    //!cancel as input
     else {
         std::cout << "Insertion aborted" << std::endl;
     }
 }
 
+//Function to delete existing word from string vector
 void Delete() {
     system("Color 40");
     bool removed = false;
+
+    //Action cannot be done if the database is already empty
     if (red_flags.empty()) {
         std::cout << "Red Flag database is empty." << std::endl;
     }
+
+    //Prompt to remove data from string vector
     else {
         std::cout << "Enter word to remove: " << std::endl;
         std::cin >> word;
         lowercase_input = Lowercase_Input(word);
+
+        //If input is not to abort action
         if (word != "!cancel") {
 
-
+            //Traverses through the string vector, erases the word inputted if found
             for (unsigned int i = 0; i < red_flags.size(); i++) {
                 if (red_flags[i] == lowercase_input) {
 
+                    //Erases the word
                     red_flags.erase(red_flags.begin() + i);
                     removed = true;
+
+                    //Prompt notification indicating successful execution
                     std::cout << "Word has been successfully removed." << std::endl;
                 }
             }
+
+            //If word via input is not in the string vector
             if (!removed) {
                 std::cout << "Inputted word was not found in database." << std::endl;
             }
         }
+
+        //Input is !cancel
         else {
             std::cout << "Deletion aborted." << std::endl;
         }
@@ -268,13 +325,19 @@ void Delete() {
     lowercase_input.clear();
 }
 
+//Function to execute a certain function based on input
 void Select_Action(unsigned int act) {
+
+    //Switch statement to indicate cases
     switch (act) {
+
+    //1: Read text from input file
     case 1:
         std::cout << "Read from a file." << std::endl;
         Read_File();
         break;
 
+    //2: Peform string-search, cannot be done if text data was not previously loaded
     case 2:
         if (full_text.empty()) {
             std::cout << "No post from a file is loaded. Please load in a .txt file first before performing a string-search." << std::endl;
@@ -286,14 +349,17 @@ void Select_Action(unsigned int act) {
             break;
         }
 
+    //3: Insert new word into string vector
     case 3:
         Insert();
         break;
 
+    //4: Delete word from string vector
     case 4:
         Delete();
         break;
 
+    //5: View all trigger words in string vector
     case 5:
         std::cout << "All Red Flag Words in Database: " << std::endl;
         for (unsigned int i = 0; i < red_flags.size(); i++) {
@@ -303,6 +369,7 @@ void Select_Action(unsigned int act) {
         std::cout << std::endl;
         break;
 
+    //6: View text loaded
     case 6:
         if (!full_text.empty()) {
             std::cout << full_text << std::endl;
@@ -312,6 +379,8 @@ void Select_Action(unsigned int act) {
             std::cout << std::endl;
         }
         break;
+
+    //7: Exit the program
     case 7:
         system("Color 07");
         system("cls");
@@ -320,9 +389,12 @@ void Select_Action(unsigned int act) {
     }
 }
 
+//Driver function
 int main()
 {
     system("Color 1F");
+
+    //Opening prompt
     std::cout << "----------------------------------------------------------------------" << std::endl;
     std::cout << "CSC212 Final Project Spring 2022, Group members include David DelGiudice, David Lancellotti, and Leo Ampuero" << std::endl;
     std::cout << "Program: String Search Emulator that local law enforcement would utilize to detect potential school shooters from mock social media posts in the form of .txt files." << std::endl;
@@ -330,14 +402,17 @@ int main()
     std::cout << "Additional functionality exists for a menu-like application, allowing editing the red flag database, display the loaded post, and exiting the app via user input" << std::endl;
     std::cout << std::endl;
 
+    //Unsigned int for action
     unsigned int action;
 
+    //Commands prompt
     std::cout << "Select an action to perform. \n1 - Read text from a file \n2 - Perform String Search" <<
         "\n3 - Add word to Red Flag List\n4 - Remove word from Red Flag List\n5 - View all Red Flag words in list\n6 - Display Post\n7 - Exit" << std::endl;
     while (running) {
         system("Color 1F");
         std::cout << "\nAction: ";
         if (std::cin >> action) {
+            //If input is of type int but not within range
             if (action < 1 || action > 7) {
                 std::cout << "Invalid command entered. Please enter an integer between 1 and 7." << std::endl;
                 std::cin.clear();
@@ -347,6 +422,8 @@ int main()
                 Select_Action(action);
             }
         }
+
+        //If text data is inputted
         else {
             std::cout << "Invalid input entered. Please enter an integer between 1 and 7." << std::endl;
             std::cin.clear();
