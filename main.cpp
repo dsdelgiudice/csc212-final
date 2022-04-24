@@ -114,7 +114,6 @@ void Read_File() {
                 //Confirmation message and closes the file
                 std::cout << "File successfully opened and post successfully recorded." << std::endl;
                 lowercase_text = Lowercase_Input(full_text);
-                //std::cout << lowercase_text;
                 file.close();
             }
         }
@@ -136,9 +135,7 @@ void Perform_Search() {
 
     //Prompt for pattern to search
     std::cout << "Enter a pattern to search for. Input !cancel to abort. " << std::endl;
-
     std::cin >> pattern;
-    //std::getline(std::cin, pattern);
 
     //Sets length of pattern
     pattern_length = pattern.length();
@@ -152,11 +149,7 @@ void Perform_Search() {
         std::cout << "Please enter a pattern with a lower length than the text." << std::endl;
         std::cin.clear();
         std::cin >> pattern;
-
-        //std::getline(std::cin, pattern);
         pattern_length = pattern.length();
-
-
     }
     //If input is not to abort action
     if (pattern != "!cancel") {
