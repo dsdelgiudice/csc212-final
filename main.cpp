@@ -364,7 +364,10 @@ void Select_Action(unsigned int act) {
     //6: View text loaded
     case 6:
         if (!full_text.empty()) {
+            std::cout << "Length of text: " << lowercase_text.length() << std::endl;
+            std::cout << "----------------------------------------------------------------------------------------------------" << std::endl;           
             std::cout << full_text << std::endl;
+            std::cout << "----------------------------------------------------------------------------------------------------" << std::endl;
         }
         else {
             std::cout << "No post is currently loaded. Please load in a .txt file first." << std::endl;
