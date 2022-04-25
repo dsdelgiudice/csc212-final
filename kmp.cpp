@@ -81,7 +81,7 @@ void KMP::Search(std::string txt, std::string pat) {
             pat_idx++;
         }
         /*If all characters match, if the pattern index has reached the end of the pattern
-        as character comparisons occur (left -> right), contradicting Boyer-Moore comparing
+        as character comparisons occur (left -> right), contradicting Boyer-Moore comparing 
         characters in the opposite direction (right -> left)*/
         if (pat_idx == pattern_length) {
 
@@ -90,7 +90,7 @@ void KMP::Search(std::string txt, std::string pat) {
 
             //Increment the amount of times the pattern has been found; is returned to the function call.
             times_found++;
-
+            
             //Following for loop executes in an attempt to match the pattern with any red flag word from the string vector
             for (size_t i = 0; i < trigger_words.size(); i++) {
 
@@ -99,24 +99,18 @@ void KMP::Search(std::string txt, std::string pat) {
 
                     //Set boolean to true
                     red_flag = true;
-
-                    //Additional notification to display if the boolean is true during execution of search
-                    std::cout << "----------------------------------------------------------------------------------------------------" << std::endl;
-                    std::cout << "A Red-Flag word has been detected! \nConsider this post dangerous!\nContact Local Law Enforcement!" << std::endl;
-                    std::cout << "----------------------------------------------------------------------------------------------------" << std::endl;
-                    std::cout << std::endl;
                 }
 
             }
 
             //Set next shift
-            pat_idx = prefix[pat_idx - 1];
+            pat_idx = prefix.at(pat_idx - 1);
         }
         //If the characters do not match
-        if (!(txt_vec[txt_idx] == pat_vec[pat_idx])) {
+        if (!(txt_vec.at(txt_idx) == pat_vec.at(pat_idx))) {
             if (pat_idx != 0) {
                 //Set next shift
-                pat_idx = prefix[pat_idx - 1];
+                pat_idx = prefix.at(pat_idx - 1);
             }
             else {
                 //Increment index of text
@@ -131,6 +125,14 @@ void KMP::Search(std::string txt, std::string pat) {
     }
     else {
         std::cout << "Pattern is not in the text." << std::endl;
+    }
+
+    if (red_flag) {
+        //Additional notification to display if the boolean is true during execution of search
+        std::cout << "----------------------------------------------------------------------------------------------------" << std::endl;
+        std::cout << "A Red-Flag word has been detected! \nConsider this post dangerous!\nContact Local Law Enforcement!" << std::endl;
+        std::cout << "----------------------------------------------------------------------------------------------------" << std::endl;
+        std::cout << std::endl;
     }
 }
 
