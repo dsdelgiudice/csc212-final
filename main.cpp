@@ -9,12 +9,11 @@
 //main.cpp
 
 #include <iostream>
-#include<string>
+#include <string>
 #include <limits>
 #include <fstream>
 #include <ctime>
 #include <vector>
-#include <cctype>
 #include "boyermoore.h"
 #include "kmp.h"
 
