@@ -127,6 +127,7 @@ void KMP::Search(std::string txt, std::string pat) {
         std::cout << "Pattern is not in the text." << std::endl;
     }
 
+    //Is the pattern a red flag word in the string vector?
     if (red_flag) {
         //Additional notification to display if the boolean is true during execution of search
         std::cout << "----------------------------------------------------------------------------------------------------" << std::endl;
