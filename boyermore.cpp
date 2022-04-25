@@ -2,25 +2,28 @@
 
 #include "boyermoore.h"
 
+//Constructor for all parameters
 BoyerMoore::BoyerMoore(std::string txt, std::string pat, unsigned int txt_length, unsigned int pat_length, std::vector<std::string> triggers) {
     this->text = txt;
     this->pattern = pat;
     this->text_length = txt_length;
     this->pattern_length = pat_length;
-    trigger_words = triggers;
+    trigger_words = triggers;    
 }
 
+//Function to instantiate the table / vector for bad characters / last occurrence of a character
 std::vector<int> BoyerMoore::Preprocess_BC(std::string pattern) {
     //Vector for bad characters. 256 represents all ASCII values for all characters, from punctuation to numbers and letters (uppercase and lowercase)
     std::vector<int> bad_chars(256, -1);
 
     for (unsigned int i = 0; i < pattern.size(); i++) {
         //Store the last occurrences of all letters in the pattern
-        bad_chars.at(pattern.at(i)) = i;       
+        bad_chars.at(pattern.at(i)) = i;
     }
     return bad_chars;
 }
 
+//Function to instantiate a vector containing shifts based on suffixes
 std::vector<int> BoyerMoore::Preprocess_GS(std::string pattern) {
 
     size_t i = pattern_length;
@@ -31,6 +34,7 @@ std::vector<int> BoyerMoore::Preprocess_GS(std::string pattern) {
     std::vector<int> shifts(pattern_length + 1, 0);
 
     boundary_positions.at(i) = j;
+    
     //While loop below tracks for the boundaries of the pattern
     while (i > 0) {
         //If the characters are not equal at i -1, continue searching right for the border
@@ -43,7 +47,7 @@ std::vector<int> BoyerMoore::Preprocess_GS(std::string pattern) {
             // update the position of next border
             j = boundary_positions.at(j);
         }
-
+      
         //As the pattern at (i - 1) == pattern at (j - 1), the position of the border of the prefix starts from i -1 is j -1.
         i--;
         j--;
@@ -114,17 +118,9 @@ void BoyerMoore::Search(std::string text, std::string pattern) {
 
                 //If the pattern matches a word in the string vector
                 if (trigger_words.at(i) == pattern) {
-
                     //Set boolean to true
-                    red_flag = true;
-
-                    //Additional notification to display if the boolean is true during execution of search
-                    std::cout << "----------------------------------------------------------------------------------------------------" << std::endl;
-                    std::cout << "A Red-Flag word has been detected! \nConsider this post dangerous!\nContact Local Law Enforcement!" << std::endl;
-                    std::cout << "----------------------------------------------------------------------------------------------------" << std::endl;
-                    std::cout << std::endl;
+                    red_flag = true;                 
                 }
-
             }
 
             //Set shift from Bad Character Rule; condition is to prevent bugs if at the end of the text length
@@ -165,6 +161,15 @@ void BoyerMoore::Search(std::string text, std::string pattern) {
     //Pattern not found
     else {
         std::cout << "Pattern is not in the text." << std::endl;
+    }
+
+    //Is the pattern in the string vector?
+    if (red_flag) {
+        //Additional notification to display if the boolean is true during execution of search
+        std::cout << "----------------------------------------------------------------------------------------------------" << std::endl;
+        std::cout << "A Red-Flag word has been detected! \nConsider this post dangerous!\nContact Local Law Enforcement!" << std::endl;
+        std::cout << "----------------------------------------------------------------------------------------------------" << std::endl;
+        std::cout << std::endl;
     }
 }
 
