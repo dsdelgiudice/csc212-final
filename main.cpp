@@ -6,8 +6,6 @@
 * Leo Ampuero
 */
 
-//main.cpp
-
 #include <iostream>
 #include <string>
 #include <limits>
