@@ -164,7 +164,7 @@ void BoyerMoore::Search(std::string text, std::string pattern) {
 
     //Pattern not found
     else {
-        std::cout << "Pattern is not in the text.";
+        std::cout << "Pattern is not in the text." << std::endl;
     }
 }
 
