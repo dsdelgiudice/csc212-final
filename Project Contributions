@@ -1,13 +1,14 @@
 Contributions:
 
-David DelGiudice:
-- All code contributed (main.cpp, and both classes for algorithms)
-- All research regarding Boyer-Moore for presentation and project report.
-- Partial research regarding Knuth-Morris-Pratt algorithm for presentation and project report.
-- All sections of project report (Introduction, Abstract, Methods / Research, and Implementation)
-
+David DelGiudice: 
+- Researched the Boyer-Moore algorithm in its entirety, both heuristics Bad Character and Good Suffix defined, with brief background and other analytics.
+- Performed remaining necessary research for KMP algorithm.
+- Coded main.cpp and all its functionality (menu coding, input validation, program structure, string vector).
+- Coded the Boyer-Moore class (.h and .cpp).
+- Coded the Knuth-Morris-Pratt class (.h and .cpp).
+- Wrote all sections of the project report (Abstract, Introduction, Methods / Research, Implementation, and Conclusion).
 David Lancellotti:
-- Partial research regarding Knuth-Morris-Pratt algorithm for presentation.
-
+- Researched a majority of the Knuth-Morris-Pratt algorithm.
+- No coding contributions were made.
 Leo Ampuero:
-- No contributions were made on Leo's part.
+- No contributions of any kind were made on his part.
