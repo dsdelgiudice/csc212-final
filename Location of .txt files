@@ -1,0 +1,4 @@
+.txt files are located in the .txt files branch in this repository
+
+To test the string searching program correctly, insert all .txt files into /project_name/project_name. There are no command line arguments, so do not put them into
+the Debug folder.
