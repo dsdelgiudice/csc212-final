@@ -1,4 +1,7 @@
-.txt files are located in the .txt files branch in this repository
+.txt files are located in the .txt files Branch in this repository
 
 To test the string searching program correctly, insert all .txt files into /project_name/project_name. There are no command line arguments, so do not put them into
 the Debug folder.
+
+The .txt files labeled with "rf" at the end of the file name have a red flag word in the text. Searching for the red flag word will trigger the alert notification
+if the pattern exists in the text.
