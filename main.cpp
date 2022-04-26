@@ -69,7 +69,7 @@ std::string Lowercase_Input(std::string ipt) {
 
 //Function to read text from a file
 void Read_File() {
-    system("Color 60");
+    system("Color 30");
 
     //Boolean for determining if a file is found
     bool found = false;
@@ -271,7 +271,7 @@ void Insert() {
 
 //Function to delete existing word from string vector
 void Delete() {
-    system("Color 40");
+    system("Color 47");
     bool removed = false;
 
     //Action cannot be done if the database is already empty
